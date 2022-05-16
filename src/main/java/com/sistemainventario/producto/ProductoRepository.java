@@ -1,4 +1,4 @@
-package com.sistemainventario.categoria.producto;
+package com.sistemainventario.producto;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
