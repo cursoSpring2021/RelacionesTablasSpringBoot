@@ -1,50 +1,66 @@
 package com.sistemainventario.categoria;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.sistemainventario.marca.Marca;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "categorias")
 public class Categoria {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	@Column(length = 45, nullable = false, unique = true)
-	private String nombre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(length = 45, nullable = false, unique = true)
+    private String nombre;
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
+    private Marca marca;
 
-	public Categoria() {
-	}
 
-	public Categoria(Integer id) {
-		this.id = id;
-	}
+    public Categoria() {
+    }
 
-	public Categoria(String nombre) {
-		this.nombre = nombre;
-	}
+    public Categoria(Integer id, String nombre, Marca marca) {
+        this.id = id;
+        this.nombre = nombre;
+        this.marca = marca;
+    }
 
-	public Categoria(Integer id, String nombre) {
-		this.id = id;
-		this.nombre = nombre;
-	}
+    public Categoria(String nombre, Marca marca) {
+        this.nombre = nombre;
+        this.marca = marca;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Categoria(Integer id) {
+        this.id = id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

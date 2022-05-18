@@ -57,7 +57,6 @@ public class ProductoController {
 
     public String eliminarProducto(@PathVariable Integer id, Model model){
         productoRepository.deleteById(id);
-
         return "redirect:/productos";
     }
 
