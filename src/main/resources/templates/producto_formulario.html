@@ -20,7 +20,6 @@
         </ul>
     </div>
 </nav>
-
 <div class="container" th:align="center">
     <div>
         <h1 th:if="${producto.id == null}">Registro de Producto</h1>
@@ -29,7 +28,7 @@
               method="post" style="max-width: 600px; margin: 0 auto;">
             <input type="hidden" th:field="*{id}" th:value="${producto.id}">
             <div class="m-3">
-                <div class="form-group row">
+                <div class="form-group row" th:align="right">
                     <label class="col-from-label col-sm-4">Nombre de
                         producto:</label>
                     <div class="col-sm-8">
@@ -37,8 +36,7 @@
                                required="required"/>
                     </div>
                 </div>
-
-                <div class="form-group row">
+                <div class="form-group row" th:align="right">
                     <label class="col-from-label col-sm-4">Precio de
                         producto:</label>
                     <div class="col-sm-8">
@@ -46,28 +44,69 @@
                                required="required"/>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-from-label col-sm-4">Categoria:</label>
+                <div class="form-group row" th:align="right">
+                    <label class="col-from-label col-sm-4" th:align="right">Categoria:</label>
                     <div class="col-sm-8">
                         <select th:field="*{categoria}" class="form-control" required="required">
                             <th:block th:each="categoria : ${listaCategorias}">
                                 <option th:text="${categoria.nombre}" th:value="${categoria.id}">
                                 </option>
                             </th:block>
-
                         </select>
                     </div>
                 </div>
+                <!--Mostrar los detalles -->
+                <th:block th:unless="${producto.id == null}" th:each="detalle,status : ${producto.detalles}">
+                    <input type="hidden" name="detalleID" th:value="${detalle.id}">
+                    <div class="form-group row" th:align="right">
+                        <label class="col-form-label col-sm-4">Detalles #[[${status.count}]]: </label>
+                        <div class="col-sm-4">
+                            <input type="text" name="detallesNombre" th:value="${detalle.nombre}" class="form-control"
+                                   required>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="detallesValor" th:value="${detalle.valor}" class="form-control"
+                                   required>
+                        </div>
+                    </div>
+                </th:block>
 
+                <!--Agreamos los detalles -->
+                <th:block th:if="${producto.id == null}">
+                    <div class="form-group row" th:align="right">
+                        <label class="col-form-label col-sm-4">Detalles 1: </label>
+                        <div class="col-sm-4">
+                            <input type="text" name="detallesNombre" class="form-control" placeholder="Nombre" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="detallesValor" class="form-control" placeholder="Valor" required>
+                        </div>
+                    </div>
+                    <div class="form-group row" th:align="right">
+                        <label class="col-form-label col-sm-4">Detalles 2: </label>
+                        <div class="col-sm-4">
+                            <input type="text" name="detallesNombre" class="form-control" placeholder="Nombre" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="detallesValor" class="form-control" placeholder="Valor" required>
+                        </div>
+                    </div>
+                    <div class="form-group row" th:align="right">
+                        <label class="col-form-label col-sm-4">Detalles 3: </label>
+                        <div class="col-sm-4">
+                            <input type="text" name="detallesNombre" class="form-control" placeholder="Nombre" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="detallesValor" class="form-control" placeholder="Valor" required>
+                        </div>
+                    </div>
+                </th:block>
                 <div class="text-center p">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
         </form>
-
     </div>
-
 </div>
-
 </body>
 </html>
